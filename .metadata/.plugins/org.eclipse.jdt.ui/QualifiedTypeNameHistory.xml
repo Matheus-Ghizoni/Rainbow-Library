@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="javax.ws.rs.POST"/>
+    <fullyQualifiedTypeName name="javax.servlet.http.HttpServlet"/>
+    <fullyQualifiedTypeName name="javax.servlet.http.HttpServletRequest"/>
+    <fullyQualifiedTypeName name="javax.servlet.http.HttpServletResponse"/>
+    <fullyQualifiedTypeName name="java.security.NoSuchAlgorithmException"/>
+    <fullyQualifiedTypeName name="java.io.IOException"/>
+    <fullyQualifiedTypeName name="javax.servlet.ServletException"/>
+    <fullyQualifiedTypeName name="java.security.MessageDigest"/>
+    <fullyQualifiedTypeName name="java.math.BigInteger"/>
+    <fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
+    <fullyQualifiedTypeName name="java.util.Base64.Decoder"/>
+    <fullyQualifiedTypeName name="java.util.Base64"/>
+    <fullyQualifiedTypeName name="com.sun.org.apache.xml.internal.security.utils.Base64"/>
+    <fullyQualifiedTypeName name="com.sun.org.apache.xerces.internal.impl.dv.util.Base64"/>
+    <fullyQualifiedTypeName name="br.com.arcoiris.modelo.Usuario"/>
+    <fullyQualifiedTypeName name="br.com.arcoiris.jdbc.JDBCAutenticaDAO"/>
+    <fullyQualifiedTypeName name="br.com.arcoiris.bd.Conexao"/>
+    <fullyQualifiedTypeName name="br.com.arcoiris.modelo.Book"/>
+    <fullyQualifiedTypeName name="java.sql.SQLException"/>
+    <fullyQualifiedTypeName name="br.com.arcoiris.jdbc.JDBCBookDAO"/>
+    <fullyQualifiedTypeName name="br.com.arcoiris.jdbcinterface.BookDao"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="java.sql.Statement"/>
+    <fullyQualifiedTypeName name="java.sql.ResultSet"/>
+    <fullyQualifiedTypeName name="br.com.arcoiris.modelo.Category"/>
+    <fullyQualifiedTypeName name="br.com.arcoiris.jdbc.JDBCCategoryDAO"/>
+    <fullyQualifiedTypeName name="br.com.arcoiris.modelo.Comment"/>
+    <fullyQualifiedTypeName name="br.com.arcoiris.jdbc.JDBCCommentDAO"/>
+    <fullyQualifiedTypeName name="javax.ws.rs.PUT"/>
+    <fullyQualifiedTypeName name="br.com.arcoiris.jdbc.JDBCUserDAO"/>
+    <fullyQualifiedTypeName name="br.com.arcoiris.modelo.User"/>
+    <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
+    <fullyQualifiedTypeName name="java.util.Date"/>
+    <fullyQualifiedTypeName name="br.com.arcoiris.modelo.Loan"/>
+    <fullyQualifiedTypeName name="br.com.arcoiris.jdbc.JDBCLoanDAO"/>
+</qualifiedTypeNameHistroy>

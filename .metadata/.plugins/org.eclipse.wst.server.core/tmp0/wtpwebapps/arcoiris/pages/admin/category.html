@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../css/admin.css">
+	<link rel="stylesheet" type="text/css" href="../../css/jquery-ui.css">
+	<script src="../../js/category.js"></script>
+	<script src="../../js/jquery-ui.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"
+		integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+	<title>Category</title>
+</head>
+
+<body>
+	<!-- Menu -->
+	<div class="menu">
+		<div class="d-flex justify-content-center">
+			<img class="menu-img" src="../../imgs/menu.png">
+		</div>
+	</div>
+	<div class="modal-menu">
+		<a href="library.html">Biblioteca</a> <br>
+		<a href="book.html">Livros</a> <br>
+		<a href="category.html">Categorias</a> <br>
+		<a href="user.html">Usuários</a> <br>
+		<a href="loan.html">Emprestimos</a> <br>
+		<a href="comment.html">Comentários</a><br>
+		<a href="../../index.html">Sair</a>
+	</div>
+	
+	<!--	Form Categorias  -->
+	<h3>Cadastro de Categorias</h3>
+	<form class="frmcategory">
+		<input type="text" placeholder="Categoria" id="inputCategory"><br>
+		<button>Limpar</button>
+		<button onclick="insertCategory()">Salvar</button>
+	</form>
+	<br><br><br><br>
+	<input type="text" placeholder="Pesquisar">
+	<button>pesquisar</button>
+	<div id="listCategorys"></div>
+
+	<!-- Modal Edit Category -->
+	<div id="modalEditCategory" style="display: none">
+		<form class="frmeditcategory">
+			<input type="text" placeholder="Código" id="inputEditIdCategory" disabled><br>
+			<input type="text" placeholder="Título" id="inputEditNameCategory"><br>
+			<button type="reset">Cancelar</button>
+			<button onclick="editCategory()">Salvar</button>
+		</form>
+	</div>
+</body>
+
+</html>

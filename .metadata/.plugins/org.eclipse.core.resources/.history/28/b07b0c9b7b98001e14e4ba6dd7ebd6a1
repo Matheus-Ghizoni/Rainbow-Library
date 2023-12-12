@@ -1,0 +1,182 @@
+document.addEventListener("DOMContentLoaded", function() {
+	getStartDate();
+	getDeadlineDate();
+	getAllUsers();
+	getAllBooks();
+
+
+});
+
+//		$('.selectUsers').select2();
+//		$('.selectBooks').select2();
+//		$('.selectCode').select2();
+
+/*------------------------ Denifinindo Datas ------------------------*/
+function getStartDate() {
+	let today = new Date();
+	let date = today.getFullYear() + '-' +
+		(today.getMonth() + 1).toString().padStart(2, '0') + '-' +
+		today.getDate().toString().padStart(2, '0');
+	document.getElementById('inputStartDateLoan').value = date;
+}
+
+function getDeadlineDate() {
+	let today = new Date();
+	let date = today.getFullYear() + '-' +
+		(today.getMonth() + 1).toString().padStart(2, '0') + '-' +
+		(today.getDate() + 7).toString().padStart(2, '0');
+	document.getElementById('inputDeadlineDateLoan').value = date;
+}
+
+/*------------------------ Select Usuários ------------------------*/
+function getAllUsers() {
+	$.ajax({
+		type: "GET",
+		url: "/arcoiris/rest/user/getAllUsers",
+		success: function(data) {
+			dados = JSON.parse(data);
+			displayUsers(dados);
+		},
+		error: function(info) {
+			alert("Erro ao buscar usuários: " + info.status + " - " + info.statusText);
+		}
+	})
+}
+
+function displayUsers(listUsers) {
+	select = "#selectUsers";
+	if (listUsers != "") {
+		$(select).html("");
+		var option = document.createElement("option");
+		option.setAttribute("value", "");
+		option.innerHTML = ("Selecione o usuário");
+		$(select).append(option);
+
+		for (var i = 0; i < listUsers.length; i++) {
+			if (listUsers[i].status == 1) {
+				var option = document.createElement("option");
+				option.setAttribute("value", listUsers[i].CPF);
+				option.innerHTML = (listUsers[i].name);
+				$(select).append(option);
+			}
+		}
+
+	} else {
+		$(select).html("");
+
+		var option = document.createElement("option");
+		option.setAttribute("value", "");
+		option.innerHTML = ("Cadastre um usuário primeiro!");
+		$(select).append(option);
+		$(select).addClass("aviso");
+	}
+}
+
+/*------------------------ Select Livros ------------------------*/
+function getAllBooks() {
+	const title = "";
+	$.ajax({
+		type: "GET",
+		url: "/arcoiris/rest/book/getAllBooks",
+		data: "title=" + title,
+		success: function(dados) {
+			dados = JSON.parse(dados);
+			displayTitle(dados);
+			displayCode(dados);
+		},
+		error: function(info) {
+			alert("Erro ao buscar livros: " + info.status + " - " + info.statusText);
+		}
+	})
+}
+
+function displayTitle(listBooks) {
+	select = "#selectBooks";
+	if (listBooks != "") {
+		$(select).html("");
+		var option = document.createElement("option");
+		option.setAttribute("value", "");
+		option.innerHTML = ("Selecione o livro");
+		$(select).append(option);
+
+		for (var i = 0; i < listBooks.length; i++) {
+			if (listBooks[i].status == 1) {
+				var option = document.createElement("option");
+				option.setAttribute("value", listBooks[i].code);
+				option.innerHTML = (listBooks[i].title);
+				$(select).append(option);
+			}
+		}
+
+	} else {
+		$(select).html("");
+
+		var option = document.createElement("option");
+		option.setAttribute("value", "");
+		option.innerHTML = ("Cadastre um livro primeiro!");
+		$(select).append(option);
+		$(select).addClass("aviso");
+	}
+}
+
+function displayCode(listBooks) {
+	select = "#selectCode";
+	if (listBooks != "") {
+		$(select).html("");
+		var option = document.createElement("option");
+		option.setAttribute("value", "");
+		option.innerHTML = ("Selecione o livro");
+		$(select).append(option);
+
+		for (var i = 0; i < listBooks.length; i++) {
+			if (listBooks[i].status == 1) {
+				var option = document.createElement("option");
+				option.setAttribute("value", listBooks[i].code);
+				option.innerHTML = (listBooks[i].code);
+				$(select).append(option);
+			}
+		}
+
+	} else {
+		$(select).html("");
+
+		var option = document.createElement("option");
+		option.setAttribute("value", "");
+		option.innerHTML = ("Cadastre um livro primeiro!");
+		$(select).append(option);
+		$(select).addClass("aviso");
+	}
+}
+
+/* --------------------   Detalhe   ------------------------*/
+
+function addDetailLine() {
+	var novoCampo = $("tr.details:first").clone();
+	novoCampo.find("input").val("");
+	novoCampo.find("select").val("");
+	novoCampo.insertAfter("tr.details:last");
+}
+
+function deleteDetailLine(button) {
+	if ($("tr.details").length > 1) {
+		$(button).parent().parent().remove();
+	} else {
+		alert("A última linha não pode ser excluída.");
+	}
+}
+
+/* --------------------   REST Loan   ------------------------*/
+
+function registerLoan() {
+	
+}
+
+function validateDetails() {
+	var bookCode = document.getElementsByName('selCodeBooks[]');
+	var bookCode = document.getElementsByName('selTitleBook[]');
+	var bookCode = document.getElementsByName('inputAuthorBook[]');
+	var bookCode = document.getElementsByName('inputLocationBook[]');
+}
+
+
+

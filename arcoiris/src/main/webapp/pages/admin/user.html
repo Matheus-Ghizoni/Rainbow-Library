@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../css/admin.css">
+	<script src="../../js/user.js"></script>
+	<script src="../../js/jquery-ui.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"
+		integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+	<title>User</title>
+</head>
+
+<body>
+	<div class="menu">
+		<div class="d-flex justify-content-center">
+			<img class="menu-img" src="../../imgs/menu.png">
+		</div>
+	</div>
+	<div class="modal-menu">
+		<a href="home.html">Home</a> <br>
+		<a href="book.html">Livros</a> <br>
+		<a href="user.html">Usuários</a> <br>
+		<a href="loan.html">Emprestimos</a> <br>
+		<a href="comment.html">Comentários</a><br>
+		<a href="../../index.html">Sair</a>
+	</div>
+
+	<!--	Modal User  -->
+	<div>
+		<h3>Cadastro de Usuários</h3>
+		<form class="frmuser">
+			<select name="type" id="inputType">
+				<option value="">Selecione</option>
+				<option value="0">Cliente</option>
+				<option value="1">Administrador</option>
+			</select><br>
+			<input type="text" placeholder="CPF" id="inputCPF"><br>
+			<input type="text" placeholder="Nome" id="inputName"><br>
+			<input type="text" placeholder="E-mail" id="inputEmail"><br>
+			<input type="text" placeholder="Senha" id="inputPassword"><br>
+			<button type="reset">Limpar</button>
+			<button onclick="insert()">Cadastrar</button>
+		</form>
+		<br><br><br><br>
+		<input type="text" placeholder="Pesquisar">
+		<button>pesquisar</button>
+		<div id="listUsers"></div>
+
+		<!-- Modal Edit User -->
+		<div name="frmEditUser" id="modalEditUser" style="display: none">
+			<form class="frmuser">
+				<input type="text" placeholder="CPF" id="inputEditCPF" disabled><br>
+				<input type="text" placeholder="Nome" id="inputEditName"><br>
+				<input type="text" placeholder="E-mail" id="inputEditEmail"><br>
+				<input type="text" placeholder="Senha" id="inputEditPassword" style="display: block">
+				<input type="text" placeholder="Tipo" id="inputEditType"><br>
+				<button type="reset">Cancelar</button>
+				<button onclick="editUser()">Editar Usuário</button>
+			</form>
+		</div>
+	</div>
+
+</body>
+
+</html>

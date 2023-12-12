@@ -1,0 +1,68 @@
+/* Reset */
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+/* Menu */
+.menu {
+	position: absolute;
+	top: 30px;
+	right: 130px;
+}
+
+.menu-img {
+	width: 70px;
+	height: 70px;
+}
+
+/* Menu Modal*/
+.modal-menu {
+	background: #EDD9FF;
+	display: block;
+	position: fixed;
+	align-items: center;
+	text-align: center;
+	right: 58px;
+}
+
+.modal-menu a {
+	color: #C49AE9;
+	font-weight: bold;
+	margin: 60px;
+}
+
+.edit {
+	width: 16px;
+	height: 16px;
+}
+
+
+
+
+.navbar-books {
+	background-color: #EDD9FF;
+	padding: 10px 20px;
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 10px;
+	border-color: #C49AE9;
+	margin-top: 10px;
+}
+
+.navbar-btn {
+	margin-top: 10px;
+	padding: 2px;
+	border-radius: 100%;
+	background-color: #EDD9FF;
+	border-color: #C49AE9;
+	border-width: 1px;
+	align-items: center;
+}
+
+.navbar-img {
+	width: 20px;
+	height: 20px;
+	margin: 9px;
+}

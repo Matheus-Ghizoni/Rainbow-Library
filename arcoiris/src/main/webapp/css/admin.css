@@ -1,0 +1,39 @@
+/* Reset */
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+/* Menu */
+.menu {
+	position: absolute;
+	top: 30px;
+	right: 130px;
+}
+
+.menu-img {
+	width: 70px;
+	height: 70px;
+}
+
+/* Menu Modal*/
+.modal-menu {
+	background: #EDD9FF;
+	display: block;
+	position: fixed;
+	align-items: center;
+	text-align: center;
+	right: 58px;
+}
+
+.modal-menu a {
+	color: #C49AE9;
+	font-weight: bold;
+	margin: 60px;
+}
+
+.edit {
+	width: 16px;
+	height: 16px;
+}

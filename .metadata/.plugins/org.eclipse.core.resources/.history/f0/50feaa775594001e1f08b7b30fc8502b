@@ -1,0 +1,50 @@
+document.addEventListener("DOMContentLoaded", function() {
+	document.getElementById('inputStartDateLoan').value = getDateNow();
+	document.getElementById('inputDeadlineDateLoan').value = getDateNowDDD();
+});
+
+function getDateNow() {
+    let today = new Date();
+    let date = today.getFullYear() + '-' +
+        (today.getMonth() + 1).toString().padStart(2, '0') + '-' +
+        today.getDate().toString().padStart(2, '0');
+    return date;
+}
+
+function getDateNowDDD() {
+    let today = new Date();
+    let date = today.getFullYear() + '-' +
+        (today.getMonth() + 1).toString().padStart(2, '0') + '-' +
+        (today.getDate() + 7).toString().padStart(2, '0');
+    return date;
+}
+
+function insertLoan() {
+	const bookLoan = document.getElementById("inputBookLoan");
+	const userLoan = document.getElementById("inputUserLoan");
+	const deadlineDateLoan = document.getElementById("inputDeadlineDateLoan");
+
+	const loan = {
+		book: bookLoan.value,
+		user: userLoan.value,
+		startDate: startDateLoan.value,
+		deadlineDate: deadlineDateLoan.value
+	};
+
+	if ((loan.book == "") || (loan.user == "") || (loan.startDate == "") || (loan.deadlineDate == "")) {
+		alert("Preencha todos os campos!");
+	} else {
+		$.ajax({
+			type: "POST",
+			url: "/arcoiris/rest/loan/insert",
+			data: JSON.stringify(loan),
+			success: function(msg) {
+				alert(msg);
+				$("#frmloan").trigger("reset");
+			},
+			error: function(info) {
+				alert("Erro realizar um novo empréstimo: " + info.status + " - " + info.statusText);
+			}
+		});
+	}
+}

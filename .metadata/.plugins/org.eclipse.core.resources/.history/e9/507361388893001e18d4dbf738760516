@@ -1,0 +1,221 @@
+package br.com.arcoiris.jdbc;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import br.com.arcoiris.modelo.Book;
+import br.com.arcoiris.modelo.Category;
+
+public class JDBCBookDAO {
+
+	private Connection conexao;
+
+	public JDBCBookDAO(Connection conexao) {
+		this.conexao = conexao;
+	}
+
+	public boolean insert(Book book) {
+
+		String comando = "INSERT INTO book (title, author, location, fkcategory) VALUES (?,?,?,?)";
+		PreparedStatement p;
+
+		try {
+
+			p = this.conexao.prepareStatement(comando);
+
+			p.setString(1, book.getTitle());
+			p.setString(2, book.getAuthor());
+			p.setString(3, book.getLocation());
+			p.setInt(4, book.getfkCategory());
+
+			p.execute();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+
+	}
+
+	public List<Book> getBooks(String titleParam) {
+		String comando = "SELECT * FROM book ";
+		if(!titleParam.equals("")) {
+			comando += "where LOWER(title) LIKE LOWER('%"+ titleParam +"%') ";
+		}
+		comando += "order by code desc";
+		
+		List<Book> listBooks = new ArrayList<Book>();
+		Book book = null;
+		try {
+			Statement stmt = conexao.createStatement();
+			ResultSet rs = stmt.executeQuery(comando);
+			while (rs.next()) {
+				book = new Book();
+				Category category = new Category();
+
+				int code = rs.getInt("code");
+				String title = rs.getString("title");
+				String author = rs.getString("author");
+				String location = rs.getString("location");
+				int fkcategory = rs.getInt("fkcategory");
+				int status = rs.getInt("status");
+
+				JDBCCategoryDAO jdbcCategory = new JDBCCategoryDAO(conexao);
+				category = jdbcCategory.getCategory(fkcategory);
+
+				book.setCode(code);
+				book.setTitle(title);
+				book.setAuthor(author);
+				book.setLocation(location);
+				book.setfkCategory(fkcategory);
+				book.setNameCategory(category.getName());
+				book.setStatus(status);
+
+				listBooks.add(book);
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return listBooks;
+
+	}
+	
+	public List<Book> getBooksCategory(int fkcategoryParam) {
+		
+		String comando = "SELECT * FROM book where fkcategory = "+fkcategoryParam+" order by code desc";
+		
+		System.out.println(comando);
+		
+		List<Book> listBooks = new ArrayList<Book>();
+		Book book = null;
+		try {
+			Statement stmt = conexao.createStatement();
+			ResultSet rs = stmt.executeQuery(comando);
+			while (rs.next()) {
+				book = new Book();
+				Category category = new Category();
+
+				int code = rs.getInt("code");
+				String title = rs.getString("title");
+				String author = rs.getString("author");
+				String location = rs.getString("location");
+				int fkcategory = rs.getInt("fkcategory");
+				int status = rs.getInt("status");
+
+				JDBCCategoryDAO jdbcCategory = new JDBCCategoryDAO(conexao);
+				category = jdbcCategory.getCategory(fkcategory);
+
+				book.setCode(code);
+				book.setTitle(title);
+				book.setAuthor(author);
+				book.setLocation(location);
+				book.setfkCategory(fkcategory);
+				book.setNameCategory(category.getName());
+				book.setStatus(status);
+
+				listBooks.add(book);
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return listBooks;
+
+	}
+
+	public boolean delete(int code) {
+		String comando = "DELETE FROM book WHERE code = ?";
+		PreparedStatement p;
+		try {
+			p = this.conexao.prepareStatement(comando);
+			p.setInt(1, code);
+			p.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	public boolean edit(Book book) {
+
+		String comando = "UPDATE book SET title=?, author=?, location=?, fkcategory=? WHERE code=?";
+		PreparedStatement p;
+		try {
+			p = this.conexao.prepareStatement(comando);
+			p.setString(1, book.getTitle());
+			p.setString(2, book.getAuthor());
+			p.setString(3, book.getLocation());
+			p.setInt(4, book.getfkCategory());
+			p.setInt(5, book.getCode());
+			p.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	public Book getBook(int codeParam) {
+
+		String comando = "SELECT * FROM book where code = ?";
+		Book book = null;
+		try {
+			PreparedStatement p = this.conexao.prepareStatement(comando);
+			p.setInt(1, codeParam);
+			ResultSet rs = p.executeQuery();
+			while (rs.next()) {
+				book = new Book();
+				Category category = new Category();
+
+				int code = rs.getInt("code");
+				String title = rs.getString("title");
+				String author = rs.getString("author");
+				int fkcategory = rs.getInt("fkcategory");
+				String location = rs.getString("location");
+				int status = rs.getInt("status");
+
+				JDBCCategoryDAO jdbcCategory = new JDBCCategoryDAO(conexao);
+				category = jdbcCategory.getCategory(fkcategory);
+
+				book.setCode(code);
+				book.setTitle(title);
+				book.setAuthor(author);
+				book.setLocation(location);
+				book.setfkCategory(fkcategory);
+				book.setNameCategory(category.getName());
+				book.setStatus(status);
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return book;
+
+	}
+
+	public boolean inactivate(int code) {
+
+		String comando = "UPDATE book SET status = CASE WHEN status = 0 THEN 1 ELSE 0 END where code = ?";
+		PreparedStatement p;
+
+		try {
+			p = this.conexao.prepareStatement(comando);
+			p.setInt(1, code);
+			p.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+
+	}
+
+}

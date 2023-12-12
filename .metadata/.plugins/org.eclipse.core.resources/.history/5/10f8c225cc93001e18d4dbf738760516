@@ -1,0 +1,5 @@
+package br.com.arcoiris.jdbc;
+
+public class JDBCLoanDAO {
+
+}

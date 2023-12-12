@@ -1,0 +1,109 @@
+/* Reset */
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* Header */
+.header {
+    background-color: #C49AE9;
+    text-align: center;
+}
+
+.header a, h1{
+    color: white;
+}
+
+.header h1{
+    font-size: 55px;
+    font-family: 'Franklin Gothic Medium';
+    padding: 30px 0;
+    font-weight: bold;
+}
+
+.login{
+    position: absolute;
+    top: 10px;
+    right: 100px;
+    font-weight: bold;
+}
+
+.login img {
+    width: 70px;
+    height: 80px;
+}
+
+.raimbow{
+    position: absolute;
+    display: block;
+    width: 192px;
+    height: 192px;
+}
+
+/* Card de Login */
+.card-signin {
+    border: 0;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1rem #D4A3FF;
+}
+
+.card-signin .card-title {
+    margin-bottom: 2rem;
+    font-weight: 300;
+    font-size: 1.5rem;
+}
+
+.card-signin .card-body {
+    padding: 2rem;
+}
+
+.card .img {
+    width: 70px;
+    height: 80px;
+}
+
+.card {
+    background-color: #C49AE9;
+    color: white;
+}
+
+.btn-color {
+    background-color: #D4A3FF;
+    color: white;
+    font-weight: bold;
+}
+
+/* Estilos para a modal */
+.modal-faleconosco {
+    display: none;
+    position: absolute;
+    left: -100%;
+    top: 0;
+    width: 18.2%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.modal-content {
+    background-color: #EDD9FF;
+    position: absolute;
+    left: 0;
+    top: 39.7%;
+    padding: 8px 0px;
+    transition: 0.3s;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+#acesso {
+    color: white;
+}

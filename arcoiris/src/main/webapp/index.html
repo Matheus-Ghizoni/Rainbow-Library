@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/login.css">
+    <script src="js/login.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="js/jquery-ui.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>    
+    <title>Login</title>
+</head>
+<header>
+    <div class="header">
+        <img src="imgs/raimbow.png" alt="arco-íris" class="raimbow">
+        <h1 class="col-12 d-flex justify-content-center align-items-center">Sala Arco íris</h1>
+    </div>
+</header>
+<body>
+    <div class="container">
+        <div class="col-sm-3 col-md-7 col-lg-5 mx-auto">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    <div class="col-12 d-flex justify-content-center align-items-center">
+                        <img class="logo" src="imgs/user.png" alt="User">
+                    </div>
+
+                    <form name="frmLogin" method="POST" action="autenticar" onsubmit="ValidaDados()">
+                        <div>
+                            <br>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label-group" for="cpf">Login</label>
+                                    <input class="form-control" type="text" name="cpf" placeholder="CPF" id="cpf">
+                                </div>
+                            </div>
+                            <br>
+                
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label-group" for="login">Senha</label>
+                                    <input class="form-control" type="password" name="password" id="password" placeholder="Senha">
+                                </div>
+                            </div>
+                            <br>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <button type="submit" class="btn form-control btn-color" onclick="login()">Entrar</button>
+                                    <a href="pages/home.html" type="button" class="btn btn-link form-control" id="acesso">Acessar sem usuário</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

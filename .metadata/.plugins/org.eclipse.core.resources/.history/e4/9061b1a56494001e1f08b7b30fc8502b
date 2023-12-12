@@ -1,0 +1,45 @@
+package br.com.arcoiris.jdbc;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import br.com.arcoiris.modelo.Loan;
+
+public class JDBCLoanDAO {
+	private Connection conexao;
+
+	public JDBCLoanDAO(Connection conexao) {
+		this.conexao = conexao;
+	}
+
+	public boolean insert(Loan loan) {
+
+		String comando = "INSERT INTO loan (fkbook, fkuser, startDate, deadlineDate) VALUES (?,?,?,?)";
+		PreparedStatement p;
+
+		try {
+			
+			System.out.println(loan.getBookCode());
+			System.out.println(loan.getUserCPF());
+			System.out.println(loan.getStartDate());
+			System.out.println(loan.getDeadlineDate());
+
+			p = this.conexao.prepareStatement(comando);
+
+			p.setInt(1, loan.getBookCode());
+			p.setString(2, loan.getUserCPF());
+			p.setDate(3, (Date) loan.getStartDate());
+			p.setDate(4, (Date) loan.getDeadlineDate());
+			
+			p.execute();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+
+	}
+}

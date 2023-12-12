@@ -1,0 +1,151 @@
+package br.com.arcoiris.rest;
+
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import com.google.gson.Gson;
+
+import br.com.arcoiris.bd.Conexao;
+import br.com.arcoiris.jdbc.JDBCLoanDAO;
+import br.com.arcoiris.modelo.Loan;
+
+@Path("loan")
+public class LoanRest extends UtilRest {
+
+	@POST
+	@Path("/insert")
+	@Consumes("application/*")
+	public Response insert(String loanParam) {
+		try {
+			Loan loan = new Gson().fromJson(loanParam, Loan.class);
+			Conexao conec = new Conexao();
+			Connection conexao = conec.abrirConexao();
+			
+			JDBCLoanDAO jdbcLoan = new JDBCLoanDAO(conexao);
+			boolean retorno = jdbcLoan.insert(loan);
+			String msg = "";
+
+			if (retorno) {
+				msg = "Emprestimo cadastrado com sucesso";
+			} else {
+				msg = "Erro ao cadastrar emprestimo";
+			}
+
+			conec.fecharConexao();
+
+			return this.buildResponse(msg);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return this.buildErrorResponse(e.getMessage());
+		}
+	}
+	
+	/*
+	 * @GET
+	 * 
+	 * @Path("/getAllUsers")
+	 * 
+	 * @Produces(MediaType.APPLICATION_JSON) public Response getAllUsers() {
+	 * 
+	 * try { List<User> listUsers = new ArrayList<User>();
+	 * 
+	 * Conexao conec = new Conexao(); Connection conexao = conec.abrirConexao();
+	 * 
+	 * JDBCUserDAO jdbcUser = new JDBCUserDAO(conexao); listUsers =
+	 * jdbcUser.getUsers();
+	 * 
+	 * conec.fecharConexao(); String json = new Gson().toJson(listUsers); return
+	 * this.buildResponse(json); } catch (Exception e) { e.printStackTrace(); return
+	 * this.buildErrorResponse(e.getMessage()); }
+	 * 
+	 * }
+	 * 
+	 * @DELETE
+	 * 
+	 * @Path("/deleteUser/{id}")
+	 * 
+	 * @Consumes("application/*") public Response deleteUser(@PathParam("id") String
+	 * id) {
+	 * 
+	 * try { Conexao conec = new Conexao(); Connection conexao =
+	 * conec.abrirConexao(); JDBCUserDAO jdbcUser = new JDBCUserDAO(conexao);
+	 * 
+	 * boolean retorno = jdbcUser.delete(id);
+	 * 
+	 * String msg = ""; if (retorno) { msg = "Usuário excluído com sucesso!"; } else
+	 * { msg = "Erro ao excluir usuário."; }
+	 * 
+	 * conec.fecharConexao();
+	 * 
+	 * return this.buildResponse(msg);
+	 * 
+	 * } catch (Exception e) { e.printStackTrace(); return
+	 * this.buildErrorResponse(e.getMessage()); }
+	 * 
+	 * }
+	 * 
+	 * @PUT
+	 * 
+	 * @Path("/editUser")
+	 * 
+	 * @Consumes("application/*") public Response editUser(String userParam) { try {
+	 * User user = new Gson().fromJson(userParam, User.class); Conexao conec = new
+	 * Conexao(); Connection conexao = conec.abrirConexao();
+	 * 
+	 * JDBCUserDAO jdbcUser = new JDBCUserDAO(conexao); boolean retorno =
+	 * jdbcUser.edit(user);
+	 * 
+	 * String msg = ""; if (retorno){ msg = "Usuário alterado com sucesso!"; }else{
+	 * msg = "Erro ao alterar usuário."; }
+	 * 
+	 * conec.fecharConexao(); return this.buildResponse(msg); }catch(Exception e) {
+	 * e.printStackTrace(); return this.buildErrorResponse(e.getMessage()); } }
+	 * 
+	 * @GET
+	 * 
+	 * @Path("/getUser")
+	 * 
+	 * @Consumes("application/*")
+	 * 
+	 * @Produces(MediaType.APPLICATION_JSON) public Response
+	 * getUser(@QueryParam("CPF") String CPF){
+	 * 
+	 * try{ User user = new User(); Conexao conec = new Conexao(); Connection
+	 * conexao = conec.abrirConexao();
+	 * 
+	 * JDBCUserDAO jdbcUser = new JDBCUserDAO(conexao); user =
+	 * jdbcUser.getUser(CPF); conec.fecharConexao(); return
+	 * this.buildResponse(user); }catch(Exception e){ e.printStackTrace(); return
+	 * this.buildErrorResponse(e.getMessage()); } }
+	 * 
+	 * @PUT
+	 * 
+	 * @Path("/inactivate/{CPF}")
+	 * 
+	 * @Consumes("application/*") public Response inactivate(@PathParam("CPF")
+	 * String CPF) { try { Conexao conec = new Conexao(); Connection conexao =
+	 * conec.abrirConexao(); JDBCUserDAO jdbcUser = new JDBCUserDAO(conexao);
+	 * 
+	 * boolean retorno = jdbcUser.inactivate(CPF);
+	 * 
+	 * String msg = ""; if (retorno){ msg = "Status alterado com sucesso!"; }else{
+	 * msg = "Erro ao alterar status da usuário."; }
+	 * 
+	 * conec.fecharConexao(); return this.buildResponse(msg); }catch(Exception e) {
+	 * e.printStackTrace(); return this.buildErrorResponse(e.getMessage()); } }
+	 */
+}

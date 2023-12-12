@@ -1,0 +1,201 @@
+document.addEventListener("DOMContentLoaded", function() {
+	getStartDate();
+	getDeadlineDate();
+	getAllUsers();
+	getAllBooks();
+});
+
+/*------------------------ Denifinindo Datas ------------------------*/
+function getStartDate() {
+	let today = new Date();
+	let date = today.getFullYear() + '-' +
+		(today.getMonth() + 1).toString().padStart(2, '0') + '-' +
+		today.getDate().toString().padStart(2, '0');
+	document.getElementById('inputStartDateLoan').value = date;
+}
+
+function getDeadlineDate() {
+	let today = new Date();
+	let date = today.getFullYear() + '-' +
+		(today.getMonth() + 1).toString().padStart(2, '0') + '-' +
+		(today.getDate() + 7).toString().padStart(2, '0');
+	document.getElementById('inputDeadlineDateLoan').value = date;
+}
+
+/*------------------------ Select Usuários ------------------------*/
+function getAllUsers() {
+	$.ajax({
+		type: "GET",
+		url: "/arcoiris/rest/user/getAllUsers",
+		success: function(data) {
+			dados = JSON.parse(data);
+			displayUsers(dados);
+		},
+		error: function(info) {
+			alert("Erro ao buscar usuários: " + info.status + " - " + info.statusText);
+		}
+	})
+}
+
+function displayUsers(listUsers) {
+	select = "#selectUsers";
+	if (listUsers != "") {
+		$(select).html("");
+		var option = document.createElement("option");
+		option.setAttribute("value", "");
+		option.innerHTML = ("Selecione o usuário");
+		$(select).append(option);
+
+		for (var i = 0; i < listUsers.length; i++) {
+			if (listUsers[i].status == 1) {
+				var option = document.createElement("option");
+				option.setAttribute("value", listUsers[i].CPF);
+				option.innerHTML = (listUsers[i].name);
+				$(select).append(option);
+			}
+		}
+
+	} else {
+		$(select).html("");
+
+		var option = document.createElement("option");
+		option.setAttribute("value", "");
+		option.innerHTML = ("Cadastre um usuário primeiro!");
+		$(select).append(option);
+		$(select).addClass("aviso");
+	}
+}
+
+/*------------------------ Select Livros ------------------------*/
+function getAllBooks() {
+	const title = "";
+	$.ajax({
+		type: "GET",
+		url: "/arcoiris/rest/book/getAllBooks",
+		data: "title=" + title,
+		success: function(dados) {
+			dados = JSON.parse(dados);
+			displayBooks(dados);
+		},
+		error: function(info) {
+			alert("Erro ao buscar livros: " + info.status + " - " + info.statusText);
+		}
+	})
+}
+
+function displayBooks(listBooks) {
+	select = "#selectBooks";
+	if (listBooks != "") {
+		$(select).html("");
+		var option = document.createElement("option");
+		option.setAttribute("value", "");
+		option.innerHTML = ("Selecione o livro");
+		$(select).append(option);
+
+		for (var i = 0; i < listBooks.length; i++) {
+			if (listBooks[i].status == 1) {
+				var option = document.createElement("option");
+				option.setAttribute("value", listBooks[i].code);
+				option.innerHTML = (listBooks[i].title);
+				$(select).append(option);
+			}
+		}
+
+	} else {
+		$(select).html("");
+
+		var option = document.createElement("option");
+		option.setAttribute("value", "");
+		option.innerHTML = ("Cadastre um livro primeiro!");
+		$(select).append(option);
+		$(select).addClass("aviso");
+	}
+}
+
+/*------------------------ Rest Loan ------------------------*/
+function insertLoan() {
+	const loan = {
+		bookCode: document.getElementById("selectBooks").value,
+		userCPF: document.getElementById("selectUsers").value,
+		startDate: document.getElementById("inputStartDateLoan").value,
+		deadlineDate: document.getElementById("inputDeadlineDateLoan").value
+	};
+
+	if ((loan.bookCode == "") || (loan.userCPF == "") || (loan.startDate == "") || (loan.deadlineDate == "")) {
+		alert("Preencha todos os campos!");
+	} else {
+		$.ajax({
+			type: "POST",
+			url: "/arcoiris/rest/loan/insert",
+			data: JSON.stringify(loan),
+			success: function(msg) {
+				alert(msg);
+				$("#frmloan").trigger("reset");
+			},
+			error: function(info) {
+				alert("Erro realizar um novo empréstimo: " + info.status + " - " + info.statusText);
+			}
+		});
+	}
+}
+
+function getAllLoans() {
+	$.ajax({
+		type: "GET",
+		url: "/arcoiris/rest/loan/getAllLoans",
+		success: function(dados) {
+			dados = JSON.parse(dados);
+			displayLoans(dados);
+		},
+		error: function(info) {
+			alert("Erro ao buscar livros: " + info.status + " - " + info.statusText);
+		}
+	})
+}
+
+function displayLoans(listLoans) {
+	let tableLoans = "<table>" +
+		"<tr>" +
+		"<th>Código</th>" +
+		"<th>Livro</th>" +
+		"<th>Usuário</th>" +
+		"<th>Data do empréstimo</th>" +
+		"<th>Prazo</th>" +
+		"<th>Data de devolução</th>" +
+		"<th>Ações</th>" +
+		"</tr>";
+
+	if (listLoans != undefined && listLoans.length > 0) {
+
+		for (var i = 0; i < listLoans.length; i++) {
+			tableLoans += "<tr>" +
+				"<td>" + listLoans[i].code + "</td>" +
+				"<td>" + listLoans[i].title + "</td>" +
+				"<td>" + listLoans[i].author + "</td>" +
+				"<td>" + listLoans[i].location + "</td>" +
+				"<td>" + listLoans[i].namecategory + "</td>" +
+				"<td>";
+			if (listLoans[i].status == 1) {
+				tableLoans += "<label class='switch'>" +
+					"<input onclick=\"inactivateBook(" + listLoans[i].code + ")\" id='statusBook' type='checkbox' checked>" +
+					"<span class='slider round'></span>" +
+					"</label>"
+			} else {
+				tableLoans += "<label class='switch'>" +
+					"<input onclick=\"inactivateBook(" + listLoans[i].code + ")\" id='statusBook' type='checkbox'>" +
+					"<span class='slider round'></span>" +
+					"</label>"
+			}
+			tableLoans += "</td>" +
+				"<td><button onclick='deleteBook(" + listLoans[i].code + ")'>Excluir</button>" +
+				"<button onclick=\"getBookCode(" + listLoans[i].code + ")\">Editar</button></td>" +
+				"</tr>"
+		}
+
+	} else if (listBooks == "") {
+		tableLoans += "<tr><td colspan='6'>Nenhum registro encontrado</td></tr>";
+	}
+	tableLoans += "</table>";
+
+	return tableLoans;
+}

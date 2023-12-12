@@ -1,0 +1,137 @@
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../css/admin.css">
+	<link rel="stylesheet" type="text/css" href="../../css/jquery-ui.css">
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+	<script src="../../js/loan.js"></script>
+	<script src="../../js/jquery-ui.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"
+		integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+	<title>Loan</title>
+</head>
+
+<body>
+	<!-- Menu -->
+	<!--	<div class="menu">
+		<div class="d-flex justify-content-center">
+			<img class="menu-img" src="../../imgs/menu.png">
+		</div>
+	</div>
+	<div class="modal-menu">
+		<a href="library.html">Biblioteca</a> <br>
+		<a href="book.html">Livros</a> <br>
+		<a href="category.html">Categorias</a> <br>
+		<a href="user.html">Usuários</a> <br>
+		<a href="loan.html">Emprestimos</a> <br>
+		<a href="comment.html">Comentários</a><br>
+		<a href="../../index.html">Sair</a>
+	</div>-->
+
+	<!--	Modal Emprestimo  -->
+	<!--	<h3>Cadastro de Empréstimos</h3>
+	<form class="frmloan">
+		<select name="type" class="selectBooks" id="selectBooks" onload="getAllBooks()" style="width: 200px;">
+			<option value="">Livro</option>
+		</select><br>
+		<select name="type" class="selectUsers" id="selectUsers" onload="getAllUsers()" style="width: 200px;">
+			<option value="">Usuário</option>
+		</select><br>
+		<input type="date" placeholder="Data de empréstimo" id="inputStartDateLoan"><br>
+		<input type="date" placeholder="Prazo de Devolução" id="inputDeadlineDateLoan"><br>
+		<button type="reset">Limpar</button>
+		<button onclick="insertLoan()">Salvar</button>
+	</form>
+	<div id="listLoans"></div>-->
+
+	<!-- Formulário Mestre-Detalhe -->
+
+	<h3>Empréstimo</h3>
+	<form name="frmAddLoan" id="addLoan" class="frmAddLoan">
+		<fieldset>
+			<legend>Empréstimo</legend>
+			<table>
+				<tr>
+					<th>Data empréstimo</th>
+					<td>
+						<input type="date" placeholder="Data de empréstimo" id="inputStartDateLoan">
+					</td>
+				</tr>
+				<tr>
+					<th>Prazo de devolução</th>
+					<td>
+						<input type="date" placeholder="Prazo de Devolução" id="inputDeadlineDateLoan">
+					</td>
+				</tr>
+				<tr>
+					<th>Usuário</th>
+					<td>
+						<select name="type" class="selectUsers" id="selectUsers" onload="getAllUsers()"
+							style="width: 200px;">
+							<option value="">Selecione</option>
+						</select><br>
+					</td>
+				</tr>
+			</table>
+		</fieldset>
+		<fieldset>
+			<legend>Livros</legend>
+			<table>
+				<tr>
+					<th>Código</th>
+					<th>Título</th>
+					<th>Autor</th>
+					<th>Localização</th>
+					<th><button type="button" name="addBook" class="addBook">+</button></th>
+				</tr>
+				<tr class="details">
+					<td>
+						<select name="type" class="selectCode" id="selectCode"
+							style="width: 200px;">
+							<option value="">Livro</option>
+						</select>
+					</td>
+					<td>
+						<select name="type" class="selectBooks" id="selectBooks"
+							style="width: 200px;">
+							<option value="">Livro</option>
+						</select>
+					</td>
+					<td>
+						<input type="text" placeholder="Autor" name="inputAuthorBook[]" id="inputAuthorBook">
+					</td>
+					<td>
+						<input type="text" placeholder="Localização" name="inputLocationBook[]" id="inputLocationBook">
+					</td>
+					<td>
+						<button type="button" name="deleteBook">-</button>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="6">
+						<button type="button">Salvar</button>
+						<button type="reset">Limpar</button>
+					</td>
+				</tr>
+			</table>
+		</fieldset>
+	</form>
+
+
+
+
+
+
+</body>
+<script>
+	$(document).ready(function () {
+		$('.selectUsers').select2();
+		$('.selectBooks').select2();
+		$('.selectCode').select2();
+	});
+</script>
+
+</html>
